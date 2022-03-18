@@ -1,2 +1,2 @@
 # spring
-Practice spring
+Practice spring application
