@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,33 +53,33 @@ class ApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string("Hello Spring!"));
 	}
-//
-//	@Test
-//	void mathPITest() throws Exception {
-//		RequestBuilder request = get("/math/pi");
-//		this.mvc.perform(request)
-//				.andExpect(status().isOk())
-//				.andExpect(content().string("3.141592653589793"));
-//	}
-//
-//	@Test
-//	void urlRequestVars() throws Exception {
-//
-//				String testString = String.format("/%d/%s", 1, "Josh");
-//				this.mvc.perform(get(testString))
-//						.andExpect(status().isOk())
-//						.andExpect(content().string(("1 and Josh")));
-//	}
-//
-//
-//	@Test
-//	void queryMapExample() throws Exception {
-//		String testString = ("/map-example?map=1&string=2");
-//		this.mvc.perform(get(testString))
-//				.andExpect(status().isOk())
-//				.andDo(MockMvcResultHandlers.print())
-//				.andExpect(content().contentType("text/plain;charset=UTF-8"))
-//				.andExpect(content().string("{map=1, string=2}"));
-//	}
+
+	@Test
+	void mathPITest() throws Exception {
+		RequestBuilder request = get("/math/pi");
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("3.141592653589793"));
+	}
+
+	@Test
+	void urlRequestVars() throws Exception {
+
+				String testString = String.format("/%d/%s", 1, "Josh");
+				this.mvc.perform(get(testString))
+						.andExpect(status().isOk())
+						.andExpect(content().string(("1 and Josh")));
+	}
+
+
+	@Test
+	void queryMapExample() throws Exception {
+		String testString = ("/map-example?map=1&string=2");
+		this.mvc.perform(get(testString))
+				.andExpect(status().isOk())
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(content().contentType("text/plain;charset=UTF-8"))
+				.andExpect(content().string("{map=1, string=2}"));
+	}
 
 }
