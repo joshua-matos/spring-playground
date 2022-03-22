@@ -41,6 +41,65 @@ class ApplicationTests {
 	}
 
 	@Test
+	void testPostMappingCalculate() throws Exception {
+		MockHttpServletRequestBuilder request = post("/math/calculate")
+				.contentType(MediaType.ALL_VALUE)
+				.param("operation", "multiply")
+				.param("x", "5")
+				.param("y", "5");
+
+		//test multiply
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("5 * 5 = 25"));
+
+		request = post("/math/calculate")
+				.contentType(MediaType.ALL_VALUE)
+				.param("operation", "add")
+				.param("x", "5")
+				.param("y", "5");
+
+		//test add
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("5 + 5 = 10"));
+
+
+		request = post("/math/calculate")
+				.contentType(MediaType.ALL_VALUE)
+				.param("x", "5")
+				.param("y", "5");
+
+		//test add
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("5 + 5 = 10"));
+
+		request = post("/math/calculate")
+				.contentType(MediaType.ALL_VALUE)
+				.param("operation", "divide")
+				.param("x", "5")
+				.param("y", "5");
+
+		//test divide
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("5 / 5 = 1"));
+
+		request = post("/math/calculate")
+				.contentType(MediaType.ALL_VALUE)
+				.param("operation", "subtract")
+				.param("x", "5")
+				.param("y", "5");
+
+		//test subtract
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("5 - 5 = 0"));
+
+	}
+
+	@Test
 	void testPostMapping() throws Exception {
 		MockHttpServletRequestBuilder request = post("/math/sum")
 				.contentType(MediaType.ALL_VALUE)
@@ -58,7 +117,7 @@ class ApplicationTests {
 				.contentType(MediaType.ALL_VALUE)
 				.param("type", "circle")
 				.param("radius", "4");
-
+		//test area
 		this.mvc.perform(request)
 				.andExpect(status().isOk())
 				.andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
@@ -68,12 +127,12 @@ class ApplicationTests {
 				.param("type", "rectangle")
 				.param("height", "4")
 				.param("width", "7");
-
+		//test rectangle
 		this.mvc.perform(request)
 				.andExpect(status().isOk())
 				.andExpect(content().string("Area of a 4x7 rectangle is 28"));
 
-
+		//test invalid input rectangle and radius
 		request = post("/math/area")
 				.contentType(MediaType.ALL_VALUE)
 				.param("type", "rectangle")

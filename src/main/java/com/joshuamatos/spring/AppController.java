@@ -63,29 +63,9 @@ public class AppController {
 			@RequestParam int x,
 			@RequestParam int y
 	) {
-		int sum;
-		operation = "";
-		String statement;
+		if(operation == null) operation = "";
 
-		switch(operation){
-			case "subtract":
-				sum = x - y;
-				statement = x + " - " + y + "= " + sum;
-				break;
-			case "multiply":
-				sum = x * y;
-				statement = x + " * " + y + "= " + sum;
-				break;
-			case "divide":
-				sum = x / y;
-				statement = x + " / " + y + "= " + sum;
-				break;
-			default:
-				sum = x + y;
-				statement = x + " + " + y + "= " + sum;
-				break;
-		}
-		return statement;
+		return mathService.calculate(operation, x, y);
 	}
 
 
