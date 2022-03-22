@@ -11,6 +11,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import javax.servlet.http.Cookie;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -60,6 +62,28 @@ class ApplicationTests {
 		this.mvc.perform(request)
 				.andExpect(status().isOk())
 				.andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+
+		request = post("/math/area")
+				.contentType(MediaType.ALL_VALUE)
+				.param("type", "rectangle")
+				.param("height", "4")
+				.param("width", "7");
+
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("Area of a 4x7 rectangle is 28"));
+
+
+		request = post("/math/area")
+				.contentType(MediaType.ALL_VALUE)
+				.param("type", "rectangle")
+				.param("radius", "4");
+
+		this.mvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("Invalid"));
+
+
 
 	}
 
@@ -116,10 +140,12 @@ class ApplicationTests {
 				.andExpect(content().string(testString));
 	}
 
-//	@Test
-//	public void testCookies() throws Exception {
-//		this.mvc.perform(get("/cookie").cookie(new Cookie("foo","bar")))
-//				.andExpect(status().isOk())
-//				.andExpect(content().string("bar"));
-//	}
+	@Test
+	public void testCookies() throws Exception {
+		Cookie cookie = new Cookie("foo", "bar");
+
+		this.mvc.perform(get("/cookie").cookie(cookie))
+				.andExpect(status().isOk())
+				.andExpect(content().string("bar"));
+	}
 }

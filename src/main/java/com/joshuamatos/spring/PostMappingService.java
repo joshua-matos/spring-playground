@@ -25,6 +25,7 @@ public class PostMappingService {
         double area = 0.0;
         String returnString = "";
         DecimalFormat df = new DecimalFormat("0.00000");
+
         if(type.equals("rectangle") && radius > 0) {
             return "Invalid";
         }
@@ -34,8 +35,9 @@ public class PostMappingService {
                          returnString = "Area of a circle with a radius of "+ radius +" is " + df.format(area);
                     break;
                 case "rectangle":
+                        df = new DecimalFormat("00");
                         area = width  * height;
-                        returnString = "Area of a" + height + "x" + width + "rectangle is " + df.format(area);
+                        returnString = "Area of a " + height + "x" + width + " rectangle is " + df.format(area);
                     break;
                 default:
                     return "invalid type.";
