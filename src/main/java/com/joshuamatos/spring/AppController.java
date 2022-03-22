@@ -11,12 +11,41 @@ public class AppController {
 
 
 	private final MathService mathService;
+	private final PostMappingService postMappingService;
 
 	@Autowired
-	public AppController(MathService mathService) {
+	public AppController(MathService mathService, PostMappingService postMappingService) {
+		this.postMappingService = postMappingService;
 		this.mathService = mathService;
 	}
 
+	@PostMapping("/math/area")
+	public String mathArea(
+			@RequestParam(required = true, value = "type") String type,
+			@RequestParam(required = false, value = "radius") Integer radius,
+			@RequestParam(required = false, value = "width") Integer width,
+			@RequestParam(required = false, value = "height") Integer height){
+
+			//make sure values are not null
+			if(radius == null){
+				radius = 0;
+			}
+			if(width == null) {
+				width = 0;
+			}
+			if(height == null){
+				height = 0;
+			}
+
+			return postMappingService.mathArea(type, radius, width, height);
+
+
+	}
+
+	@PostMapping("/posts/{postId}/comments")
+	public String createComment(@PathVariable int postId, @RequestParam Map<String, String> params) {
+		return postMappingService.createComment(postId, params);
+	}
 	@PostMapping("/math/sum")
 	public String returnPostMappingService(@RequestParam("n") ArrayList<Integer> arrayList){
 		return mathService.postSum(arrayList);
@@ -96,4 +125,8 @@ public class AppController {
 		return querystring.toString();
 	}
 
+	@GetMapping("/cookie")
+	public String getCookie(@CookieValue(name = "foo") String cookie) {
+		return cookie;
+	}
 }

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 @Service
 public class MathService {
 
-
+	//count use MultiValueMap instead
 	public String postSum(ArrayList<Integer> arrayList){
 
 		//sum positive values
