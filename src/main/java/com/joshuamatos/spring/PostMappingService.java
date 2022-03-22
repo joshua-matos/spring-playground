@@ -26,25 +26,25 @@ public class PostMappingService {
         String returnString = "";
         DecimalFormat df = new DecimalFormat("0.00000");
 
-        if(type.equals("rectangle") && radius > 0) {
+        if (type.equals("rectangle") && radius > 0) {
             return "Invalid";
         }
-            switch(type){
-                case "circle":
-                         area =  PI * (radius * radius);
-                         returnString = "Area of a circle with a radius of "+ radius +" is " + df.format(area);
-                    break;
-                case "rectangle":
-                        df = new DecimalFormat("00");
-                        area = width  * height;
-                        returnString = "Area of a " + height + "x" + width + " rectangle is " + df.format(area);
-                    break;
-                default:
-                    return "invalid type.";
+        switch (type) {
+            case "circle":
+                area = PI * (radius * radius);
+                returnString = "Area of a circle with a radius of " + radius + " is " + df.format(area);
+                break;
+            case "rectangle":
+                df = new DecimalFormat("00");
+                area = width * height;
+                returnString = "Area of a " + height + "x" + width + " rectangle is " + df.format(area);
+                break;
+            default:
+                return "invalid type.";
 
-            }
+        }
 
-            return returnString;
+        return returnString;
 
     }
 
