@@ -1,22 +1,27 @@
 package com.joshuamatos.spring;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.joshuamatos.spring.flights.FlightService;
+import com.joshuamatos.spring.flights.Flights;
+import com.joshuamatos.spring.flights.Result;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
+@AllArgsConstructor
 @RestController
 public class AppController {
+
     private final MathService mathService;
     private final PostMappingService postMappingService;
-    private String appName;
+    private final FlightService flightService;
 
-    @Autowired
-    public AppController(MathService mathService, PostMappingService postMappingService) {
-        this.postMappingService = postMappingService;
-        this.mathService = mathService;
+
+    @PostMapping("/flights/tickets/total")
+    public Result returnSumOfTickets(@RequestBody Flights flight) {
+        return flightService.returnSumOfTickets(flight);
     }
 
     @PostMapping("/math/area")
@@ -79,7 +84,6 @@ public class AppController {
         return mathService.calculate(operation, x, y);
     }
 
-
     @GetMapping("/")
     public String helloWorld() {
         return "Hello Spring!";
@@ -92,7 +96,6 @@ public class AppController {
 
     @RequestMapping("/r")
     public String RequestMappingURL() {
-
         return "r";
     }
 
