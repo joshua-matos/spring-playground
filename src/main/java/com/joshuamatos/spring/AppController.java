@@ -26,35 +26,35 @@ public class AppController {
             @RequestParam Optional<Integer> width,
             @RequestParam Optional<Integer> height) {
 
-		String stringType = type.orElseGet(() -> "no type");
-		int intRadius = radius.orElseGet(() -> 0);
-		int intWidth = width.orElseGet(() -> 0);
-		int intHeight = height.orElseGet(() -> 0);;
+        String stringType = type.orElseGet(() -> "no type");
+        int intRadius = radius.orElseGet(() -> 0);
+        int intWidth = width.orElseGet(() -> 0);
+        int intHeight = height.orElseGet(() -> 0);
 
         return postMappingService.mathArea(stringType, intRadius, intWidth, intHeight);
 
 
     }
 
-	@PostMapping("/volume/{length}/{width}/{height}")
-	public String calculateVolume(
-			@PathVariable Integer length,
-			@PathVariable Integer width,
-			@PathVariable Integer height
-	) {
-		if(length == null || width == null || height == null) {
-			length = 0;
-			height = 0;
-			width = 0;
-		}
-		int area = width * height * height;
-		return String.format("The volume of a rectangle is %d with the height: %d and width: %d and length: %d", area, width, height, length);
-	}
+    @PostMapping("/volume/{length}/{width}/{height}")
+    public String calculateVolume(
+            @PathVariable Integer length,
+            @PathVariable Integer width,
+            @PathVariable Integer height
+    ) {
+        if (length == null || width == null || height == null) {
+            length = 0;
+            height = 0;
+            width = 0;
+        }
+        int area = width * height * height;
+        return String.format("The volume of a rectangle is %d with the height: %d and width: %d and length: %d", area, width, height, length);
+    }
 
     @PostMapping("/posts/{postId}/comments")
     public String createComment(
-			@PathVariable int postId,
-			@RequestParam Map<String, String> params) {
+            @PathVariable int postId,
+            @RequestParam Map<String, String> params) {
         return postMappingService.createComment(postId, params);
     }
 
