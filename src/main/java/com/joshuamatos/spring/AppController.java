@@ -32,6 +32,10 @@ public class AppController {
     public Optional<Lessons> getMappingReturnALesson(@PathVariable Integer id){
         return lessonService.getALesson(id);
     }
+    @PostMapping("/lessons/")
+    public Lessons postMappingCreateALesson(@RequestBody Lessons lessons){
+        return lessonService.createALesson(lessons);
+    }
     @DeleteMapping("/lessons/{id}")
     public String deleteMappingReturnALesson(@PathVariable Integer id){
         return lessonService.deleteALesson(id);
