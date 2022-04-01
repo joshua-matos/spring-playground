@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class MathService {
 
+
     //count use MultiValueMap instead
     public String postSum(ArrayList<Integer> arrayList) {
 
@@ -62,5 +63,8 @@ public class MathService {
         return statement;
     }
 
-
+    @Override
+    public String toString() {
+        return "MathService{}";
+    }
 }

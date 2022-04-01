@@ -1,22 +1,40 @@
 package com.joshuamatos.spring;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.joshuamatos.spring.lesson.LessonService;
+import com.joshuamatos.spring.lesson.Lessons;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 public class AppController {
+
+
     private final MathService mathService;
     private final PostMappingService postMappingService;
-    private String appName;
+    private final LessonService lessonService;
 
-    @Autowired
-    public AppController(MathService mathService, PostMappingService postMappingService) {
-        this.postMappingService = postMappingService;
+    public AppController(MathService mathService, PostMappingService postMappingService, LessonService lessonService) {
         this.mathService = mathService;
+        this.postMappingService = postMappingService;
+        this.lessonService = lessonService;
+    }
+
+    @GetMapping("/lessons")
+    public List<Lessons> getMappingReturnALesson(){
+        return lessonService.getAllLessons();
+    }
+
+    @GetMapping("/lessons/{id}")
+    public Optional<Lessons> getMappingReturnALesson(@PathVariable Integer id){
+        return lessonService.getALesson(id);
+    }
+    @DeleteMapping("/lessons/{id}")
+    public String deleteMappingReturnALesson(@PathVariable Integer id){
+        return lessonService.deleteALesson(id);
     }
 
     @PostMapping("/math/area")

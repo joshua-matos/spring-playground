@@ -1,10 +1,10 @@
 package com.joshuamatos.spring;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -12,35 +12,36 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import javax.servlet.http.Cookie;
 
+import java.io.InputStream;
+import java.util.HashMap;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 
-//@SpringBootTest
-@WebMvcTest(AppController.class)
+@AutoConfigureMockMvc
+@SpringBootTest
 class ApplicationTests {
 
 	@Autowired
 	MockMvc mvc;
 
 
-	@TestConfiguration
-	static class MathServiceImplTestContextConfiguration {
-
-		@Bean
-		public MathService MathService() {
-			return new MathService();
-		}
-
-		@Bean
-		public PostMappingService PostMappingService() { return new PostMappingService();}
-
-	}
 
 	@Test
 	void testPostMappingCalculate() throws Exception {
+
+
+
+		//Map JSON information
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, String> data = new HashMap<>();
+		data.put("jsonKey", "jsonValue");
+		String json = mapper.writeValueAsString(data);
+
+
 		MockHttpServletRequestBuilder request = post("/math/calculate")
 				.contentType(MediaType.ALL_VALUE)
 				.param("operation", "multiply")
